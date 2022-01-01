@@ -45,10 +45,10 @@ if not timerPlaylistExists:
     # print("Timer Test Playlist does not exist! Creating it...")
     response = sp.user_playlist_create(
         user=user_id,
-        name="Timer Playlist Test",
+        name="Spotify Music Timer",
         public=False,
         collaborative=False,
-        description="Playlist Timer Test",
+        description="Spotify Music Timer",
     )
     timerPlaylistId = response["id"]
 #     print("Created!")
