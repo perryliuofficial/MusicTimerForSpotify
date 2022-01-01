@@ -16,22 +16,17 @@ sp = spotipy.Spotify(
     )
 )
 
-# results = sp.current_user_saved_tracks()
-
+# Select Playlist
 results = sp.current_user_playlists()
-
-#print(results)
-#print(results["items"])
 
 print ("SELECT PLAYLIST")
 print ("---------------")
 for count, playlist_results in enumerate(results['items']):
-    # print (count)
-    # print (playlist_results)
     print (str(count) +": "+ playlist_results['name'])
 
 playlist_selection = int(input("Enter playlist number: "))
 playlist_id = results['items'][playlist_selection]['id']
-# for idx, item in enumerate(results["items"]):
-#     track = item["track"]
-# print(idx, track["artists"][0]["name"], " - ", track["name"])
+
+# Select Song
+results = sp.playlist_tracks(playlist_id, fields=None, limit=100, offset=0, market="GB", additional_types=('track', ))
+print (results)
