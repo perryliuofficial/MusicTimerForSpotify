@@ -1,6 +1,7 @@
 from decouple import config
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+import time
 
 CLIENT_ID=config('CLIENT_ID')
 CLIENT_SECRET=config('CLIENT_SECRET')
@@ -58,19 +59,14 @@ if not timerPlaylistExists:
 
 #################################################################
 # clear the playlist to ensure only the songs we want to play are there
+def clearPlaylist():
+    current_timer_playlist_songs = sp.playlist_items(playlist_id=timerPlaylistId, fields="items(track(id))")
+    trackIds = list()
+    for track in current_timer_playlist_songs["items"]:
+        trackIds.append(track["track"]["id"])
+    sp.playlist_remove_all_occurrences_of_items(playlist_id=timerPlaylistId, items=trackIds)
 
-current_timer_playlist_songs = sp.playlist_items(
-    playlist_id=timerPlaylistId, fields="items(track(id))"
-)
-
-trackIds = list()
-
-for track in current_timer_playlist_songs["items"]:
-    trackIds.append(track["track"]["id"])
-
-#print(trackIds)
-
-sp.playlist_remove_all_occurrences_of_items(playlist_id=timerPlaylistId, items=trackIds)
+clearPlaylist()
 
 
 #################################################################
@@ -127,6 +123,12 @@ playlistUri = "spotify:playlist:" + timerPlaylistId
 sp.start_playback(context_uri=playlistUri)
 
 # Start Timer
+time.sleep(timer/1000) #convert ms to seconds
 
 
 # When time is up, stop current song and play song ID 1tFL456Lotpvnk8gCfZQOQ
+sp.pause_playback(device_id=None)
+#clearPlaylist()
+# this line below doesn't seem to work?
+sp.user_playlist_add_tracks(user_id, playlist_id=timerPlaylistId, tracks="spotify:track:1tFL456Lotpvnk8gCfZQOQ")
+sp.start_playback(context_uri=playlistUri)
