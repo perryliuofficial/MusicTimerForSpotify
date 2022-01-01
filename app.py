@@ -6,7 +6,7 @@ CLIENT_ID=config('CLIENT_ID')
 CLIENT_SECRET=config('CLIENT_SECRET')
 REDIRECT_URI=config('REDIRECT_URI')
 
-scope = "user-library-read playlist-read-private"
+scope = "user-library-read playlist-read-private playlist-modify-private user-modify-playback-state"
 sp = spotipy.Spotify(
     auth_manager=SpotifyOAuth(
         scope=scope,
@@ -15,6 +15,62 @@ sp = spotipy.Spotify(
         redirect_uri=REDIRECT_URI,
     )
 )
+
+
+#################################################################
+# Get user ID
+results = sp.current_user()
+user_id = results["id"]
+
+
+#################################################################
+# check if Timer playlist exists, if not create it. Also get the playlist id
+results = sp.current_user_playlists()
+playlist_items = results["items"]
+
+
+timerPlaylistExists = False
+timerPlaylistId: str
+
+for item in playlist_items:
+    name = item["name"]
+    if name == "Spotify Music Timer":
+        timerPlaylistExists = True
+        timerPlaylistId = item["id"]
+        break
+
+#print("---------")
+
+if not timerPlaylistExists:
+    # print("Timer Test Playlist does not exist! Creating it...")
+    response = sp.user_playlist_create(
+        user=user_id,
+        name="Timer Playlist Test",
+        public=False,
+        collaborative=False,
+        description="Playlist Timer Test",
+    )
+    timerPlaylistId = response["id"]
+#     print("Created!")
+# else:
+#     print("timer playlist does exist")
+
+
+#################################################################
+# clear the playlist to ensure only the songs we want to play are there
+
+current_timer_playlist_songs = sp.playlist_items(
+    playlist_id=timerPlaylistId, fields="items(track(id))"
+)
+
+trackIds = list()
+
+for track in current_timer_playlist_songs["items"]:
+    trackIds.append(track["track"]["id"])
+
+#print(trackIds)
+
+sp.playlist_remove_all_occurrences_of_items(playlist_id=timerPlaylistId, items=trackIds)
 
 
 #################################################################
@@ -57,11 +113,19 @@ if difference_to_timer > 15000: #15 seconds
     else:
         play_track_id.append(results['items'][play_track_index-1]['track']['uri'])
 #print (results['items'][0])
-print (play_track_id)
+#print (play_track_id)
+
+
+#################################################################
+# add the song(s) we want to the playlist
+sp.user_playlist_add_tracks(user_id, playlist_id=timerPlaylistId, tracks=play_track_id)
 
 
 #################################################################
 # Play Song
+playlistUri = "spotify:playlist:" + timerPlaylistId
+sp.start_playback(context_uri=playlistUri)
+
 # Start Timer
 
 
