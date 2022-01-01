@@ -58,7 +58,6 @@ token = r.json()['access_token']
 # print(json.dumps(res.json(), indent=2))
 
 # Step X - Use Access Token to call playlist endpoint
-
 playlistId = "37i9dQZF1DWZeKCadgRdKQ"
 playlistUrl = f"https://api.spotify.com/v1/playlists/{playlistId}"
 headers = {
