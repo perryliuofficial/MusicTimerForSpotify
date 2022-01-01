@@ -16,6 +16,12 @@ sp = spotipy.Spotify(
     )
 )
 
+#################################################################
+# Ask for timer duration
+timer = float(input("Timer Duration in minutes: "))
+timer = timer*60000 # convert to ms
+
+#################################################################
 # Select Playlist
 results = sp.current_user_playlists()
 
@@ -27,6 +33,21 @@ for count, playlist_results in enumerate(results['items']):
 playlist_selection = int(input("Enter playlist number: "))
 playlist_id = results['items'][playlist_selection]['id']
 
+#################################################################
 # Select Song
 results = sp.playlist_tracks(playlist_id, fields=None, limit=100, offset=0, market="GB", additional_types=('track', ))
-print (results)
+#print (results['items'][0]['track']['duration_ms'])
+
+difference_to_timer = abs(results['items'][0]['track']['duration_ms'] - timer)
+#print ("diff to timer: " + str(difference_to_timer))
+    
+for count, track_results in enumerate(results['items']):
+    #print(str(count)+ ": " + str(track_results['track']['duration_ms']))
+    current_track_difference = abs(track_results['track']['duration_ms'] - timer)
+    #print ("curr diff: " + str(current_track_difference))
+    if current_track_difference < difference_to_timer:
+        play_track_id = count
+        difference_to_timer = current_track_difference
+
+#print ("id: " + str(play_track_id))
+
