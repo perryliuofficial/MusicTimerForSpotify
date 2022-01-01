@@ -36,7 +36,6 @@ playlist_id = results['items'][playlist_selection]['id']
 #################################################################
 # Select Song
 results = sp.playlist_tracks(playlist_id, fields=None, limit=100, offset=0, market="GB", additional_types=('track', ))
-#print (results['items'][0]['track']['duration_ms'])
 
 difference_to_timer = abs(results['items'][0]['track']['duration_ms'] - timer)
 #print ("diff to timer: " + str(difference_to_timer))
@@ -46,8 +45,9 @@ for count, track_results in enumerate(results['items']):
     current_track_difference = abs(track_results['track']['duration_ms'] - timer)
     #print ("curr diff: " + str(current_track_difference))
     if current_track_difference < difference_to_timer:
-        play_track_id = count
+        play_track_index = count
         difference_to_timer = current_track_difference
 
-#print ("id: " + str(play_track_id))
+play_track_id = results['items'][play_track_index]['track']['album']['id']
+print (play_track_id)
 
