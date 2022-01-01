@@ -90,7 +90,7 @@ playlist_id = results['items'][playlist_selection]['id']
 
 #################################################################
 # Select Song
-results = sp.playlist_tracks(playlist_id, fields=None, limit=100, offset=0, market="GB", additional_types=('track', ))
+results = sp.playlist_tracks(playlist_id, fields=None, limit=100, offset=0, market=None, additional_types=('track', ))
 
 # Find song length that is closest to given timer
 difference_to_timer = abs(results['items'][0]['track']['duration_ms'] - timer)   
@@ -101,15 +101,18 @@ for count, track_results in enumerate(results['items']):
         play_track_index = count
         difference_to_timer = current_track_difference
 
-# If timer - song duration > 15 seconds then add another song to queue
 play_track_id = [results['items'][play_track_index]['track']['uri']]
-if difference_to_timer > 15000: #15 seconds
-    if play_track_index == 0:
-        play_track_id.append(results['items'][play_track_index+1]['track']['uri'])
+playlist_length = results['items'][play_track_index]['track']['duration_ms']
+
+
+songs_in_playlist = int(results['total'])-1
+while timer > playlist_length and timer - playlist_length > 15000: #15 seconds
+    if play_track_index == songs_in_playlist:
+        play_track_index = 0
     else:
-        play_track_id.append(results['items'][play_track_index-1]['track']['uri'])
-#print (results['items'][0])
-#print (play_track_id)
+        play_track_index += 1
+    play_track_id.append(results['items'][play_track_index]['track']['uri'])
+    playlist_length += results['items'][play_track_index]['track']['duration_ms']
 
 
 #################################################################
@@ -125,10 +128,16 @@ sp.start_playback(context_uri=playlistUri)
 # Start Timer
 time.sleep(timer/1000) #convert ms to seconds
 
-
 # When time is up, stop current song and play song ID 1tFL456Lotpvnk8gCfZQOQ
 sp.pause_playback(device_id=None)
-#clearPlaylist()
-# this line below doesn't seem to work?
-sp.user_playlist_add_tracks(user_id, playlist_id=timerPlaylistId, tracks="spotify:track:1tFL456Lotpvnk8gCfZQOQ")
+clearPlaylist()
+play_track_id.clear()
+play_track_id = ['spotify:track:1tFL456Lotpvnk8gCfZQOQ']
+sp.user_playlist_add_tracks(user_id, playlist_id=timerPlaylistId, tracks=play_track_id)
+playlistUri = "spotify:playlist:" + timerPlaylistId
 sp.start_playback(context_uri=playlistUri)
+
+# Stop alarm after 10 seconds
+time.sleep(10)
+sp.pause_playback(device_id=None)
+clearPlaylist()
