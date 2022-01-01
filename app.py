@@ -50,12 +50,12 @@ for count, track_results in enumerate(results['items']):
         difference_to_timer = current_track_difference
 
 # If timer - song duration > 15 seconds then add another song to queue
-play_track_id = [results['items'][play_track_index]['track']['id']]
+play_track_id = [results['items'][play_track_index]['track']['uri']]
 if difference_to_timer > 15000: #15 seconds
     if play_track_index == 0:
-        play_track_id.append(results['items'][play_track_index+1]['track']['id'])
+        play_track_id.append(results['items'][play_track_index+1]['track']['uri'])
     else:
-        play_track_id.append(results['items'][play_track_index-1]['track']['id'])
+        play_track_id.append(results['items'][play_track_index-1]['track']['uri'])
 #print (results['items'][0])
 print (play_track_id)
 
