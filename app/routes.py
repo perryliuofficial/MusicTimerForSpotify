@@ -79,9 +79,9 @@ def timer():
     form = InputForm()
     if request.method == 'POST':
         timer = form.timer.data
-        return redirect(url_for('playlist', stage=stage, title='Music Timer for Spotify', user_id=user_id, timer=timer))
+        return redirect(url_for('playlist',stage=stage,form=form,user_id=user_id))
     else :
-        return render_template('index.html', stage=stage, title='Music Timer for Spotify', user_id=user_id, form=form)
+        return render_template('index.html',stage=stage,form=form,user_id=user_id)
 
 ################################################################################################################################## 
 ################################################################################################################################## 
@@ -107,7 +107,7 @@ def playlist():
 
     form = PlaylistForm()
 
-    return render_template('playlist.html', title='Music Timer for Spotify', stage=stage, timer=timer, results=results, exports=export, form=form)
+    return render_template('playlist.html',stage=stage,timer=timer,results=results,exports=export,form=form)
 
 
 ################################################################################################################################## 
@@ -116,7 +116,6 @@ def playlist():
 def playlistRoute():
     global playlist_id
     stage = 4
-    form = PlaylistForm()
     if request.method == 'POST':
         playlist_id = request.form.get('playlist_id')
         return redirect(url_for('play', stage=stage, title='Music Timer for Spotify', playlist_id=playlist_id, timer=timer))
@@ -166,6 +165,13 @@ def play():
     playlistUri = "spotify:playlist:" + timerPlaylistId
     sp.start_playback(context_uri=playlistUri)
 
+    return redirect(url_for('countdown', stage=stage, title='Music Timer for Spotify', playlist_id=playlist_id, timer=timer))
+
+################################################################################################################################## 
+################################################################################################################################## 
+@app.route('/countdown',methods=['POST', 'GET'])
+def countdown():
+    return render_template('countdown.html', title='Music Timer for Spotify', timer=timer)
     # Start Timer
     time.sleep(float(timer)/1000) #convert ms to seconds
 

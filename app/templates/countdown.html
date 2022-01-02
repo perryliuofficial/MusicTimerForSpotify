@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+          <div class="container" id="" style="height: 90%;">
+            <div class="row container h-100 mx-0">
+              <div class="col-12 col-lg-6 d-flex align-items-center h-100">
+                <div>
+                  <a class="app-no-hover" href="/"><h1 class="display-1 app-green app-fade">Music Timer</br><img src="{{url_for('static', filename='Spotify_Logo_RGB_Green.png')}}" class="d-inline-block align-top" width="50%" /></h1></a>
+                  <p class="app-white h3" id="countdown"></p><br>
+                  <script>
+                      var getUrlParameter = function getUrlParameter(sParam) {
+                        var sPageURL = window.location.search.substring(1),
+                            sURLVariables = sPageURL.split('&'),
+                            sParameterName,
+                            i;
+
+                        for (i = 0; i < sURLVariables.length; i++) {
+                            sParameterName = sURLVariables[i].split('=');
+
+                            if (sParameterName[0] === sParam) {
+                                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                            }
+                        }
+                        return false;
+                    };
+                    var miliseconds = getUrlParameter('timer');
+
+
+                      var x = setInterval(function() {
+                      var days, hours, minutes, seconds, total_hours, total_minutes, total_seconds;
+                        miliseconds -= 1000
+                        total_seconds = parseInt(Math.floor(miliseconds / 1000));
+                        total_minutes = parseInt(Math.floor(total_seconds / 60));
+                        total_hours = parseInt(Math.floor(total_minutes / 60));
+                        days = parseInt(Math.floor(total_hours / 24));
+
+                        seconds = parseInt(total_seconds % 60);
+                        minutes = parseInt(total_minutes % 60);
+                        hours = parseInt(total_hours % 24);
+                        
+                        document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+                      + minutes + "m " + seconds + "s ";
+                      document.title = days + "d " + hours + "h "
+                      + minutes + "m " + seconds + "s ";
+                        
+                      if (miliseconds < 0) {
+                        window.location.href = "/stop";
+                      }
+                    }, 1000);
+
+                    setTimeout(setInterval, 1000)
+                    
+                    </script>
+                </div>
+              </div>
+            </div>
+          </div>
+
+{% endblock %}
