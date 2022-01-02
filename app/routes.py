@@ -83,15 +83,21 @@ def timer():
 
     form = InputForm()
     if request.method == 'POST':
-        # timer= request.form.timer.data
+        timer = form.timer.data
         # print(timer)
-        return render_template('playlist.html',forward_message=forward_message, stage=stage, user_id=user_id)
+        # timer= request.form.timer.data
+        # timer= request.InputForm.timer
+        return redirect(url_for('playlist', forward_message=forward_message, stage=stage, user_id=user_id, timer=timer, **request.args))
+        return render_template('playlist.html',forward_message=forward_message, stage=stage, user_id=user_id, timer=timer)
     else :
         return render_template('index.html',forward_message=forward_message, stage=stage, user_id=user_id, form=form)
 
 @app.route('/playlist',methods=['POST', 'GET'])
 def playlist():
     stage = 3
+
+    timer = request.form.get('timer')
+    print(timer)
     
     # if request.method == 'POST':
     #     timer = request.form.timer.data
@@ -128,4 +134,5 @@ def playlist():
 
     # playlist_selection = int(input("Enter playlist number: "))
     # playlist_id = results['items'][playlist_selection]['id']
-    return render_template('playlist.html', title='Music Timer for Spotify', stage=stage)
+
+    return render_template('playlist.html', title='Music Timer for Spotify', stage=stage, timer=timer)
