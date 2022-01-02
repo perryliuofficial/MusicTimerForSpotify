@@ -18,7 +18,6 @@
             <div class="col app-fade">
                 <form method="post" action="{{ url_for('playlistRoute') }}" id="playlistForm">
                     {{ form.hidden_tag() }}
-                    <!-- {{form.playlist_id(class="form-control",type="", value="{{export[1]}}")}} -->
                     <input id="playlist_id" type="hidden" class="form-control" name="name" value={{export[1]}} /> 
                     <button class="border-0 p-0" type="submit" form="playlistForm" value="{{export[1]}}" name="playlist_id">
                         <div class="card h-100 app-card shadow">
@@ -37,5 +36,4 @@
     </div>
 </section>
 <script>window.history.pushState("object or string", "Title", "/");</script>
-<!-- <p class="app-white">{{results}}</p> -->
 {% endblock %}

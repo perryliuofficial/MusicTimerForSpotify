@@ -104,15 +104,7 @@ def playlist():
             break
         export.append([export_name,export_id,export_image])
 
-    #print(export)
     form = PlaylistForm()
-    # print ("SELECT PLAYLIST")
-    # print ("---------------")
-    # for count, playlist_results in enumerate(results['items']):
-    #     print (str(count) +": "+ playlist_results['name'])
-
-    # playlist_selection = int(input("Enter playlist number: "))
-    # playlist_id = results['items'][playlist_selection]['id']
 
     return render_template('playlist.html', title='Music Timer for Spotify', stage=stage, timer=timer, results=results, exports=export, form=form)
 
@@ -134,9 +126,6 @@ def playlistRoute():
 def play():
     stage = 4
     global playlist_id
-    form = PlaylistForm()
-    playlist_id = form.playlist_id.data
-    print(playlist_id)
-    playlist_id = request.form.get('playlist_id')
+    playlist_id = request.args.get('playlist_id')
     print(playlist_id)
     return render_template('play.html', title='Music Timer for Spotify', playlist_id=playlist_id, timer=timer)
