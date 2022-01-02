@@ -7,14 +7,30 @@
               <div class="col-12 col-lg-6 d-flex align-items-center h-100">
                 <div>
                   <h1 class="display-1 app-green">Music Timer</br><img src="{{url_for('static', filename='Spotify_Logo_RGB_Green.png')}}" class="d-inline-block align-top" width="50%" /></h1>
+                  {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
                   {% if stage==1 %}
                   <p class="app-white h3">User: {{user_id}}</p><br>
                   <div class="row container px-0">
                     <div class="col-12 col-lg-6">
-                        <form name="myform" method="POST" class="input-group">
-                            <input type="number" class="form-control" id="InputMinutes" required placeholder="Timer (in Minutes)">
+                        <form name="myform" method="POST" action="/playlist" id="timer" class="input-group">
+                          {{ form.hidden_tag() }}
+                          <!-- <fieldset>
+                            <input type="number" class="form-control" id="timer" required placeholder="Timer (in Minutes)">
                             <button class="btn app-bg-green app-white" type="submit" id="button-addon2">Enter</button>
-                            <!-- <input type="range" name="InputMinutes" id="InputMinutes"> -->
+                          </fieldset> -->
+                          <p class="">
+                            <span class="app-white">{{form.timer.label}}</span><br>
+                            <span>{{form.timer(size=20)}}{{ form.submit() }}</span>
+                          </p>
+                            
                         </form>
                     </div>
                   </div>
