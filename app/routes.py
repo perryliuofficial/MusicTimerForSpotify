@@ -3,7 +3,7 @@ from app import app, sp
 from decouple import config
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-from app.forms import InputForm
+from app.forms import InputForm, PlaylistForm
 import json
 
 app.config['SECRET_KEY']=config('FLASK_WTF_KEY') #Flask WTF key
@@ -89,27 +89,23 @@ def playlist():
     stage = 3
 
     timer = request.form.get('timer')
-    # print(timer)
     
     #################################################################
     # Select Playlist
     global sp
     results = sp.current_user_playlists()
-    # results = results['items']
     export = []
     for result in results['items']:
         export_name = result['name']
         export_id = result['id']
-        # export_image = result['images']
-        # export_image = export_image['url']
         export_image = ""
         for image_result in result['images']:
             export_image = image_result['url']
             break
         export.append([export_name,export_id,export_image])
 
-    print(export)
-
+    #print(export)
+    form = PlaylistForm()
     # print ("SELECT PLAYLIST")
     # print ("---------------")
     # for count, playlist_results in enumerate(results['items']):
@@ -118,4 +114,29 @@ def playlist():
     # playlist_selection = int(input("Enter playlist number: "))
     # playlist_id = results['items'][playlist_selection]['id']
 
-    return render_template('playlist.html', title='Music Timer for Spotify', stage=stage, timer=timer, results=results, exports=export)
+    return render_template('playlist.html', title='Music Timer for Spotify', stage=stage, timer=timer, results=results, exports=export, form=form)
+
+
+################################################################################################################################## 
+################################################################################################################################## 
+@app.route("/playlistRoute/", methods=['POST', 'GET'])
+def playlistRoute():
+    global playlist_id
+    stage = 4
+    form = PlaylistForm()
+    if request.method == 'POST':
+        playlist_id = request.form.get('playlist_id')
+        return redirect(url_for('play', stage=stage, title='Music Timer for Spotify', playlist_id=playlist_id, timer=timer))
+
+################################################################################################################################## 
+################################################################################################################################## 
+@app.route('/play',methods=['POST', 'GET'])
+def play():
+    stage = 4
+    global playlist_id
+    form = PlaylistForm()
+    playlist_id = form.playlist_id.data
+    print(playlist_id)
+    playlist_id = request.form.get('playlist_id')
+    print(playlist_id)
+    return render_template('play.html', title='Music Timer for Spotify', playlist_id=playlist_id, timer=timer)
