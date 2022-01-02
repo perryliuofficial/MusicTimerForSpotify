@@ -7,6 +7,13 @@ Timer that plays songs for a given length of time from spotify
 - [ ] Alexa integration
 - [ ] Submit a Spotify quota extension request
 
+## 💡How It Works💡
+- Refer to [documentation](https://github.com/Alex-Draper/SpotifyMusicTimer/tree/dev/documentation/design) for more information
+- toplevel.py initialises app
+- app/__init__.py initialises app and sets up global variables
+- app/routes.py manages app logic and flow, this is where the bulk of the code is
+- app/templates for html files
+
 ## ❗Known Issues❗
 - Lines 193 to 204 of routes.py do not work as expected, currently commented out
   - Loops between print 0 1 2, pausing and restarting the timer track for an unknown reason
@@ -19,3 +26,4 @@ Timer that plays songs for a given length of time from spotify
 - Currently operates on a whitelist for users, no public access
 - In extremely rare cases Spotify can fail to update playlist, resulting in the same track over and over again
   - Deleting the playlist will resolve the issue
+- Spotify API errors result in error message on webpage (lack of error handling)
