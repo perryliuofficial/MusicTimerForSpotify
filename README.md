@@ -2,7 +2,7 @@
 Timer that plays songs for a given length of time from spotify
 
 ## ⚡Progress⚡
-- [x] Functional flask app
+- [x] MVP Flask app
 - [ ] Hosted on Heroku
 - [ ] Alexa integration
 - [ ] Submit a Spotify quota extension request
