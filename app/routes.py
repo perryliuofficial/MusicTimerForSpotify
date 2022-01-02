@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, Response, redirect, url_for, flash
-from app import app
+from app import app, sp
 from decouple import config
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -7,21 +7,23 @@ from app.forms import InputForm
 
 app.config['SECRET_KEY']=config('FLASK_WTF_KEY') #Flask WTF key
 
-
+################################################################################################################################## 
+################################################################################################################################## 
 @app.route('/', methods=['POST', 'GET'])
 def index():
     stage = 0
-    return render_template('index.html', title='Music Timer for Spotify', stage=stage)
+    return render_template('index.html', stage=stage)
+################################################################################################################################## 
+##################################################################################################################################  
 @app.route("/timer/", methods=['POST', 'GET'])
 def timer():
-    #Moving forward code
-    forward_message = "Moving Forward..."
     stage = 1
     CLIENT_ID=config('CLIENT_ID')
     CLIENT_SECRET=config('CLIENT_SECRET')
     REDIRECT_URI=config('REDIRECT_URI')
 
     scope = "user-library-read playlist-read-private playlist-modify-private user-modify-playback-state"
+    global sp 
     sp = spotipy.Spotify(
         auth_manager=SpotifyOAuth(
             scope=scope,
@@ -35,13 +37,11 @@ def timer():
     # Get user ID
     results = sp.current_user()
     user_id = results["id"]
-    #print("user: "+user_id)
 
     #################################################################
     # check if Timer playlist exists, if not create it. Also get the playlist id
     results = sp.current_user_playlists()
     playlist_items = results["items"]
-
 
     timerPlaylistExists = False
     timerPlaylistId: str
@@ -53,10 +53,7 @@ def timer():
             timerPlaylistId = item["id"]
             break
 
-    #print("---------")
-
     if not timerPlaylistExists:
-        # print("Timer Test Playlist does not exist! Creating it...")
         response = sp.user_playlist_create(
             user=user_id,
             name="Spotify Music Timer",
@@ -65,10 +62,6 @@ def timer():
             description="Spotify Music Timer",
         )
         timerPlaylistId = response["id"]
-    #     print("Created!")
-    # else:
-    #     print("timer playlist does exist")
-
 
     #################################################################
     # clear the playlist to ensure only the songs we want to play are there
@@ -84,48 +77,23 @@ def timer():
     form = InputForm()
     if request.method == 'POST':
         timer = form.timer.data
-        # print(timer)
-        # timer= request.form.timer.data
-        # timer= request.InputForm.timer
-        return redirect(url_for('playlist', forward_message=forward_message, stage=stage, user_id=user_id, timer=timer, **request.args))
-        return render_template('playlist.html',forward_message=forward_message, stage=stage, user_id=user_id, timer=timer)
+        return redirect(url_for('playlist', stage=stage, title='Music Timer for Spotify', user_id=user_id, timer=timer))
     else :
-        return render_template('index.html',forward_message=forward_message, stage=stage, user_id=user_id, form=form)
+        return render_template('index.html', stage=stage, title='Music Timer for Spotify', user_id=user_id, form=form)
 
+################################################################################################################################## 
+################################################################################################################################## 
 @app.route('/playlist',methods=['POST', 'GET'])
 def playlist():
     stage = 3
 
     timer = request.form.get('timer')
-    print(timer)
-    
-    # if request.method == 'POST':
-    #     timer = request.form.timer.data
-    #     print(timer)
-     #################################################################
-    # Input Timer
-    
-    
-    # if form.validate_on_submit():
-        # flash('Timer {}'.format(form.timer.data))
-        # return redirect('/playlist')
-        # timer = request.form.timer.data
-        # timer = timer*60000 # convert to ms
-        # print(2)
-        # return redirect('/playlist')
-        
-
-    # try:
-    #     timer = int(request.form.get('InputMinutes'))
-    # except:
-    #     timer = 5 # Default
-
-    # timer = timer*60000 # convert to ms
     # print(timer)
-
+    
     #################################################################
     # Select Playlist
-    # results = sp.current_user_playlists()
+    global sp
+    results = sp.current_user_playlists()
 
     # print ("SELECT PLAYLIST")
     # print ("---------------")
@@ -135,4 +103,4 @@ def playlist():
     # playlist_selection = int(input("Enter playlist number: "))
     # playlist_id = results['items'][playlist_selection]['id']
 
-    return render_template('playlist.html', title='Music Timer for Spotify', stage=stage, timer=timer)
+    return render_template('playlist.html', title='Music Timer for Spotify', stage=stage, timer=timer, results=results)

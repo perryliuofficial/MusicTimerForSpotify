@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+<script src="{{ url_for('static',filename='landing.js') }}"> </script>
 <p>aaaaaaaaaaaaaaa</p>>
 {{timer}}
+<!-- {{results}} -->
+
+ <!-- for count, playlist_results in enumerate(results['items']):
+         print (str(count) +": "+ playlist_results['name']) -->
+{% for playlist_results in results['items'] %}
+    <div><p>{{ playlist_results['name'] }}</b></p></div>
+    <!-- <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div> -->
+    {% endfor %}
 
 {% endblock %}

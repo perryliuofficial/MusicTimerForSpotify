@@ -7,15 +7,6 @@
               <div class="col-12 col-lg-6 d-flex align-items-center h-100">
                 <div>
                   <h1 class="display-1 app-green">Music Timer</br><img src="{{url_for('static', filename='Spotify_Logo_RGB_Green.png')}}" class="d-inline-block align-top" width="50%" /></h1>
-                  {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
                   {% if stage==1 %}
                   <p class="app-white h3">User: {{user_id}}</p><br>
                   <div class="row container px-0 mx-0">
