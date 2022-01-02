@@ -1,14 +1,21 @@
-# SpotifyMusicTimer
+# Spotify Music Timer
 Timer that plays songs for a given length of time from spotify
 
-1. ask user for timer length
-2. get user's playlists https://developer.spotify.com/console/get-current-user-playlists/?limit=&offset=, returns a json file
-3. from there users can select a playlist (we'll grab the playlist id from json)
-4. get the list of songs in playlist https://developer.spotify.com/console/get-playlist-tracks/
-5. sort them by duration_ms
-6. find right song
-7. add song to playback queue\* https://developer.spotify.com/console/post-queue/
-8. start playback\* https://developer.spotify.com/console/put-play/
-9. stop playback when timer is up https://developer.spotify.com/console/put-pause/
+## ⚡Progress⚡
+- [x] MVP Flask app
+- [ ] Hosted on Heroku
+- [ ] Alexa integration
+- [ ] Submit a Spotify quota extension request
 
-\* We cannot clear the current queue which might be problematic if user already has a song. However we can provide a context uri when starting playback, so we might be able to specify a song there?
+## ❗Known Issues❗
+- Lines 193 to 204 of routes.py do not work as expected, currently commented out
+  - Loops between print 0 1 2, pausing and restarting the timer track for an unknown reason
+  - Will result in an error
+- App will sometimes return music tracks that are region locked and unplayable by user
+- Excessive timer length can result in an error, especially when selecting playlists with short tracks
+- Spotify can sometimes fail to detect active devices for playback
+- Playlist images do not display correctly if in a non 1:1 aspect ratio
+- Long playlist names will result in irregular card lengths
+- Currently operates on a whitelist for users, no public access
+- In extremely rare cases Spotify can fail to update playlist, resulting in the same track over and over again
+  - Deleting the playlist will resolve the issue
