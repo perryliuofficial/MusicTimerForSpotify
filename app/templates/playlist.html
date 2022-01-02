@@ -1,15 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-<script src="{{ url_for('static',filename='landing.js') }}"> </script>
-<p>aaaaaaaaaaaaaaa</p>>
-{{timer}}
-<!-- {{results}} -->
 
- <!-- for count, playlist_results in enumerate(results['items']):
-         print (str(count) +": "+ playlist_results['name']) -->
-{% for playlist_results in results['items'] %}
-    <div><p>{{ playlist_results['name'] }}</b></p></div>
-    <!-- <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div> -->
-    {% endfor %}
+<section class="app-vh-min" id="">
+    <div class="container py-5" id="" style="height: 90%;">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 g-4 py-5">
 
+{% for export in exports %}
+
+
+
+        <div class="col app-fade">
+          <div class="card h-100 app-card shadow">
+            <img src="{{export[2]}}" class="card-img-top h-100" alt="" onerror="this.onerror=null;this.src='../static/disc.png';">
+            <div class="card-footer">
+                <p class="ps-0 mb-0 app-card-footer-text">{{export[0]}}</p>
+            </div>
+          </div>
+        </div>
+
+
+        
+{% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- <p class="app-white">{{results}}</p> -->
 {% endblock %}

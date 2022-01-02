@@ -4,6 +4,7 @@ from decouple import config
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from app.forms import InputForm
+import json
 
 app.config['SECRET_KEY']=config('FLASK_WTF_KEY') #Flask WTF key
 
@@ -94,6 +95,20 @@ def playlist():
     # Select Playlist
     global sp
     results = sp.current_user_playlists()
+    # results = results['items']
+    export = []
+    for result in results['items']:
+        export_name = result['name']
+        export_id = result['id']
+        # export_image = result['images']
+        # export_image = export_image['url']
+        export_image = ""
+        for image_result in result['images']:
+            export_image = image_result['url']
+            break
+        export.append([export_name,export_id,export_image])
+
+    print(export)
 
     # print ("SELECT PLAYLIST")
     # print ("---------------")
@@ -103,4 +118,4 @@ def playlist():
     # playlist_selection = int(input("Enter playlist number: "))
     # playlist_id = results['items'][playlist_selection]['id']
 
-    return render_template('playlist.html', title='Music Timer for Spotify', stage=stage, timer=timer, results=results)
+    return render_template('playlist.html', title='Music Timer for Spotify', stage=stage, timer=timer, results=results, exports=export)
