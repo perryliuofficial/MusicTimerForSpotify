@@ -12,6 +12,7 @@ app.config['SECRET_KEY']=config('FLASK_WTF_KEY') #Flask WTF key
 ################################################################################################################################## 
 ################################################################################################################################## 
 @app.route('/', methods=['POST', 'GET'])
+@app.route('/index', methods=['POST', 'GET'])
 def index():
     stage = 0
     return render_template('index.html', stage=stage)
@@ -172,10 +173,12 @@ def play():
 @app.route('/countdown',methods=['POST', 'GET'])
 def countdown():
     return render_template('countdown.html', title='Music Timer for Spotify', timer=timer)
-    # Start Timer
-    time.sleep(float(timer)/1000) #convert ms to seconds
 
-    # When time is up, stop current song and play song ID 1tFL456Lotpvnk8gCfZQOQ
+################################################################################################################################## 
+################################################################################################################################## 
+@app.route('/stop',methods=['POST', 'GET'])
+def stop():
+
     sp.pause_playback(device_id=None)
 
     def clearPlaylist():
@@ -186,7 +189,6 @@ def countdown():
         sp.playlist_remove_all_occurrences_of_items(playlist_id=timerPlaylistId, items=trackIds)
 
     clearPlaylist()
-    play_track_id.clear()
     play_track_id = ['spotify:track:1tFL456Lotpvnk8gCfZQOQ']
     sp.user_playlist_add_tracks(user_id, playlist_id=timerPlaylistId, tracks=play_track_id)
     playlistUri = "spotify:playlist:" + timerPlaylistId
@@ -197,4 +199,4 @@ def countdown():
     sp.pause_playback(device_id=None)
     clearPlaylist()
 
-    return render_template('play.html', title='Music Timer for Spotify', playlist_id=playlist_id, timer=timer)
+    return redirect(url_for('/'))

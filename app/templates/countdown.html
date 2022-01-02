@@ -43,6 +43,8 @@
                       + minutes + "m " + seconds + "s ";
                         
                       if (miliseconds < 0) {
+                        document.getElementById("countdown").innerHTML = "Time's Up";
+                      document.title = "Time's Up";
                         window.location.href = "/stop";
                       }
                     }, 1000);
@@ -54,5 +56,5 @@
               </div>
             </div>
           </div>
-
+          <script>window.history.pushState("object or string", "Title", "/");</script>
 {% endblock %}
