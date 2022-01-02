@@ -13,6 +13,9 @@ Timer that plays songs for a given length of time from spotify
   - Will result in an error
 - App will sometimes return music tracks that are region locked and unplayable by user
 - Excessive timer length can result in an error, especially when selecting playlists with short tracks
+- Spotify can sometimes fail to detect active devices for playback
 - Playlist images do not display correctly if in a non 1:1 aspect ratio
 - Long playlist names will result in irregular card lengths
 - Currently operates on a whitelist for users, no public access
+- In extremely rare cases Spotify can fail to update playlist, resulting in the same track over and over again
+  - Deleting the playlist will resolve the issue
