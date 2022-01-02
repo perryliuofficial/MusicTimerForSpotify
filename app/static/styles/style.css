@@ -2,6 +2,7 @@
     --spotify-green: #1DB954;
     --spotify-green-hover: #15833b;
     --spotify-white: #FFFFFF;
+    --spotify-black: #191414;
     --app-grey: #d1d1d1;
     --app-blue: #121F2B;
     --ppp-red: #FE5F55;
@@ -91,7 +92,7 @@ body {
 }
 
 .app-blue {
-  color: var(--app-blue);
+  color: var(--spotify-black);
 }
 
 .app-bg-white {

@@ -1,16 +1,18 @@
-from flask import render_template,request
+from flask import Flask, render_template, request, Response, redirect, url_for
 from app import app
 from decouple import config
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
 @app.route('/')
-@app.route('/index')
 def index():
-    user = {'username': 'Miguel'}
-    return render_template('index.html', title='Music Timer for Spotify', user=user)
-@app.route('/timer', methods = ['POST', 'GET'])
+    stage = 0
+    return render_template('index.html', title='Music Timer for Spotify', stage=stage)
+@app.route("/timer/", methods=['POST', 'GET'])
 def timer():
+    #Moving forward code
+    forward_message = "Moving Forward..."
+    stage = 1
     CLIENT_ID=config('CLIENT_ID')
     CLIENT_SECRET=config('CLIENT_SECRET')
     REDIRECT_URI=config('REDIRECT_URI')
@@ -94,9 +96,4 @@ def timer():
 
     # playlist_selection = int(input("Enter playlist number: "))
     # playlist_id = results['items'][playlist_selection]['id']
-
-    return render_template('timer.html', title='Music Timer for Spotify')
-
-@app.route('/playlist')
-def playlist():
-    return render_template('playlist.html', title='Music Timer for Spotify')
+    return render_template('index.html', forward_message=forward_message, stage=stage)
