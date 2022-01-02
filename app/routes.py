@@ -139,8 +139,6 @@ def play():
     play_track_index = 0
     for count, track_results in enumerate(results['items']):
         current_track_difference = float(abs(track_results['track']['duration_ms'] - float(timer)))
-        print(str(track_results['track']['duration_ms'])+" - "+str(timer)+" = "+str(current_track_difference))
-        print(float(abs(track_results['track']['duration_ms'] - float(timer))))
         if current_track_difference < difference_to_timer:
             play_track_index = count
             difference_to_timer = current_track_difference
