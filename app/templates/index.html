@@ -7,12 +7,8 @@
               <div class="col-12 col-lg-6 d-flex align-items-center h-100">
                 <div>
                   <h1 class="display-1 app-green">Music Timer</br><img src="{{url_for('static', filename='Spotify_Logo_RGB_Green.png')}}" class="d-inline-block align-top" width="50%" /></h1>
-                  <p class="app-white h3">Set a timer and listen to your Spotify playlist while you wait.</p><br>
-                  {% if stage==0 %}
-                  <form action="/timer/" method="post">
-                    <button class="btn btn-lg app-bg-white app-blue px-5" type="submit" role="button">Login</button>
-                  </form>
-                  {% elif stage==1 %}
+                  {% if stage==1 %}
+                  <p class="app-white h3">User: {{user_id}}</p><br>
                   <div class="row container px-0">
                     <div class="col-12 col-lg-6">
                         <form name="myform" method="POST" class="input-group">
@@ -23,6 +19,11 @@
                     </div>
                   </div>
                   <script>window.history.pushState("object or string", "Title", "/");</script>
+                  {% else %}
+                  <p class="app-white h3">Set a timer and listen to your Spotify playlist while you wait.</p><br>
+                  <form action="/timer/" method="post">
+                    <button class="btn btn-lg app-bg-white app-blue px-5" type="submit" role="button">Login</button>
+                  </form>
                   {% endif %}
                 </div>
               </div>

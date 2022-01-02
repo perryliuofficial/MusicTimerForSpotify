@@ -96,4 +96,4 @@ def timer():
 
     # playlist_selection = int(input("Enter playlist number: "))
     # playlist_id = results['items'][playlist_selection]['id']
-    return render_template('index.html', forward_message=forward_message, stage=stage)
+    return render_template('index.html', forward_message=forward_message, stage=stage, user_id=user_id)
