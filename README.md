@@ -33,3 +33,4 @@ Timer that plays songs for a given length of time from spotify
 - In extremely rare cases Spotify can fail to update playlist, resulting in the same track over and over again
   - Deleting the playlist will resolve the issue
 - Spotify API errors result in error message on webpage (lack of error handling)
+- Significant refactoring and code cleanup required
