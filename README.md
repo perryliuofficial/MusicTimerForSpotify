@@ -1,28 +1,36 @@
 # Spotify Music Timer
-Timer that plays songs for a given length of time from spotify
+Timer that plays songs for a given length of time from spotify, from your selected playlist.
 
-## ⚡Progress⚡
-- [x] MVP Flask app
-- [ ] Hosted on Heroku
-  - Unless the repo sits within a GitHub organisation, only the repo owner can set up automated deployment to Heroku
-- [ ] Alexa integration
-- [ ] Submit a Spotify quota extension request
+## ❗Note❗
+- The functionality of this app may break Spotify's API agreements as their policy disallows ringtones or alarms.
+- As such we will not be hosting this application.
+- To run it clone and follow the instructions below.
+
+## 💡To Run App Locally💡
+- Clone or download repo.
+- ```pip install Flask```
+- ```pip install -U Flask-WTF```
+- ```pip install spotipy```
+- ```pip install python-decouple```
+- Install any other required modules if you encounter an error when running the app.
+- Ensure you have a Spotify user account.
+- Create a [Spotify developer account](https://developer.spotify.com/dashboard/applications).
+  - Create an app and generate client id/ secret.
+  - Under app settings add a Redirect URI.
+- Create a .env file in the root directory and populate it with info from above.
+  - CLIENT_ID=000000000000000000000000
+  - CLIENT_SECRET=00000000000000000000
+  - REDIRECT_URI='http://localhost:8080/'
+  - FLASK_WTF_KEY='random-string'
+- ```flask run```
 
 ## 💡How It Works💡
-- Refer to [documentation](https://github.com/Alex-Draper/SpotifyMusicTimer/tree/dev/documentation/design) for more information
-- This app is currently in development mode and is in whitelist mode. To use the app:
-  - Set up a Spotify dev account
-  - Generate client id/ secret
-  - Add redirect uri under settings
-- toplevel.py initialises app
-- app/__init__.py initialises app and sets up global variables
-- .env (gitignored) stores all environmental variables. To set it up:
-  -  CLIENT_ID=000000000000000000000000
-  -  CLIENT_SECRET=0000000000000000000
-  -  REDIRECT_URI='http://localhost:8080/'
-  -  FLASK_WTF_KEY='random-string'
-- app/routes.py manages app logic and flow, this is where the bulk of the code is
-- app/templates for html files
+- Refer to [documentation](https://github.com/Alex-Draper/SpotifyMusicTimer/tree/dev/documentation/design) for more information.
+- toplevel.py initialises app.
+- app/__init__.py initialises app and sets up global variables.
+- .env (gitignored) stores all environmental variables.
+- app/routes.py manages app logic and flow. This is where the bulk of the code is.
+- app/templates for html files.
 
 ## ❗Known Issues❗
 - [Refer to issues](https://github.com/Alex-Draper/SpotifyMusicTimer/issues)
