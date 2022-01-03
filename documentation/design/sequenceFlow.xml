@@ -1,0 +1,17 @@
+@startuml
+
+Browser -> FrontEnd: Login()
+FrontEnd -> AppBackEnd: timer()
+AppBackEnd -> Spotify: SpotifyOAuth
+Spotify --> AppBackEnd: User
+AppBackEnd --> FrontEnd: render_template(index.html, stage, userid, form)
+Browser -> FrontEnd: time
+FrontEnd -> AppBackEnd: playlist()
+AppBackEnd --> FrontEnd : render_template(playlist.html, stage, timer, results, exports, form)
+Browser -> FrontEnd: Playlist
+FrontEnd -> AppBackEnd: playlistRoute()
+AppBackEnd -> AppBackEnd : play()
+AppBackEnd --> FrontEnd: render_template(play.html, playlist_id, timer)
+
+
+@enduml

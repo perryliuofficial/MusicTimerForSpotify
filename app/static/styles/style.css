@@ -1,0 +1,222 @@
+:root {
+    --spotify-green: #1DB954;
+    --spotify-green-hover: #15833b;
+    --spotify-white: #FFFFFF;
+    --spotify-black: #191414;
+    --app-grey: #d1d1d1;
+    --app-blue: #121F2B;
+    --ppp-red: #FE5F55;
+    --ppp-red-hover: #b1423a;
+    --ppp-white:#F7F7FF;
+    --ppp-blue:#121F2B;
+    --ppp-blue-bg:#f7f7ff0c;
+    --ppp-blue-nav:#121f2b00;
+    --app-blue-shadow:#0d1720;
+    --ppp-teal: #21a0a0;
+    --ppp-teal-hover:#1b7575;
+    --ppp-purple: #A74482;
+    --ppp-purple-hover: #77315d;
+    --app-transition: 0.3s;
+}
+  
+html {
+  scroll-behavior: smooth;
+}
+  
+::-webkit-scrollbar {
+  width: 10px;
+}
+  
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+  
+::-webkit-scrollbar-thumb {
+  background-color: var(--spotify-green);
+}
+  
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--spotify-white);
+}
+  
+.app-fade {
+  animation: fadein 4s;
+  -moz-animation: fadein 4s; /* Firefox */
+  -webkit-animation: fadein 4s; /* Safari and Chrome */
+  -o-animation: fadein 4s; /* Opera */
+}
+  
+@keyframes fadein {
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-moz-keyframes fadein { /* Firefox */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-o-keyframes fadein { /* Opera */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+  
+body {
+  background-color: var(--app-blue);
+}
+  
+.app-green {
+  color: var(--spotify-green);
+}
+
+.app-white {
+  color: var(--spotify-white);
+}
+
+.app-blue {
+  color: var(--spotify-black);
+}
+
+.app-bg-white {
+  background-color: var(--spotify-white);
+}
+.btn.app-bg-white:hover {
+  background-color: var(--app-grey);
+}
+
+.app-bg-green {
+  background-color: var(--spotify-green);
+}
+.btn.app-bg-green:hover {
+  background-color: var(--spotify-green-hover);
+}
+
+.app-navbar {
+  background-color: var(--app-blue);
+}
+
+.app-vh {
+  height:100vh;
+}
+  
+.app-vh-min {
+  min-height:100vh;
+}
+
+  
+.ppp-underline {
+  text-decoration: none !important;
+}
+  
+.ppp-orange-red {
+  color: var(--ppp-red);
+}
+  
+.ppp-red-hover:hover {
+  color: var(--ppp-red-hover);
+}
+  
+.ppp-white {
+  color:var(--ppp-white);
+}
+
+  
+.ppp-space-pre {
+  white-space: pre;
+}
+
+.ppp-overlay{
+  -webkit-filter: grayscale(80%);
+    filter: grayscale(80%);
+    -webkit-transition: var(--ppp-transition) ease-in-out;
+    transition: var(--ppp-transition) ease-in-out;
+}
+.ppp-overlay:hover {
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0);
+}
+
+a.app-no-hover:link {
+  text-decoration: none;
+}
+a.app-no-hover:visited {
+  text-decoration: none;
+}
+a.app-no-hover:hover {
+  text-decoration: none;
+}
+a.app-no-hover:active {
+  text-decoration: none;
+}
+
+button {
+  border-radius: 0.25rem;
+}
+
+.app-card {
+  height: auto;
+  width: auto;
+  background-color: transparent;
+  border-color: var(--spotify-green);
+  transition: var(--app-transition);
+}
+
+.app-card .app-card-footer-text {
+  width: 100%;
+  color: var(--spotify-white);
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0.375rem 0.375rem;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-img-top {
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+}
+
+.app-card:hover {
+  box-shadow: 0 0 20px var(--spotify-green-hover) !important;
+}
+
+.card-footer {
+  background-color: var(--spotify-green);
+}
+
+
+#ppp-img {
+  transition: var(--ppp-transition);
+}
+
+#ppp-img:hover {
+  box-shadow: 0 0 50px var(--ppp-teal) !important;
+}
+
+.ppp-text-hover {
+  transition: var(--ppp-transition);
+}
+
+.ppp-text-hover:hover {
+  color: var(--ppp-teal);
+}
