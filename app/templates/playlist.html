@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="app-vh-min" id="">
+    <div class="container py-5" id="" style="height: 90%;">
+        <div class="col-12 col-lg-6 d-flex align-items-center">
+            <div>
+            <a class="app-no-hover" href="/">
+                <h1 class="display-1 app-green">Music Timer</br><img src="{{url_for('static', filename='Spotify_Logo_RGB_Green.png')}}" class="d-inline-block align-top" width="50%" /></h1><br>
+            </a>
+            <p class="app-white h3">Select Playlist</p><br>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 g-4 py-5">
+        
+{% for export in exports %}
+        
+            <div class="col app-fade">
+                <form method="post" action="{{ url_for('playlistRoute') }}" id="playlistForm">
+                    {{ form.hidden_tag() }}
+                    <input id="playlist_id" type="hidden" class="form-control" name="name" value={{export[1]}} /> 
+                    <button class="border-0 p-0" type="submit" form="playlistForm" value="{{export[1]}}" name="playlist_id">
+                        <div class="card h-100 app-card shadow">
+                            <img src="{{export[2]}}" class="card-img-top h-100" alt="" onerror="this.onerror=null;this.src='../static/disc.png';">
+                            <div class="card-footer">
+                                <p class="ps-0 mb-0 app-card-footer-text">{{export[0]}}</p>
+                            </div>
+                        </div>
+                    </button>
+                </form>
+            </div>
+            
+{% endfor %}
+        </div>
+    </div>
+</section>
+<script>window.history.pushState("object or string", "Title", "/");</script>
+{% endblock %}
