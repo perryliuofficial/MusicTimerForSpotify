@@ -23,6 +23,8 @@ Timer that plays songs for a given length of time from spotify, from your select
   - REDIRECT_URI='http://localhost:8080/'
   - FLASK_WTF_KEY='random-string'
 - ```flask run```
+- Alternatively to run standalone_app.py which runs within the terminal:
+  -  ```python standalone_app.py```
 
 ## 💡How It Works💡
 - Refer to [documentation](https://github.com/Alex-Draper/SpotifyMusicTimer/tree/dev/documentation/design) for more information.
