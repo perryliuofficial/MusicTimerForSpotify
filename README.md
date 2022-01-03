@@ -10,6 +10,10 @@ Timer that plays songs for a given length of time from spotify
 
 ## 💡How It Works💡
 - Refer to [documentation](https://github.com/Alex-Draper/SpotifyMusicTimer/tree/dev/documentation/design) for more information
+- This app is currently in development mode and is in whitelist mode. To use the app:
+  - Set up a Spotify dev account
+  - Generate client id/ secret
+  - Add redirect uri under settings
 - toplevel.py initialises app
 - app/__init__.py initialises app and sets up global variables
 - .env (gitignored) stores all environmental variables. To set it up:
