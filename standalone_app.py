@@ -41,8 +41,6 @@ for item in playlist_items:
         timerPlaylistId = item["id"]
         break
 
-#print("---------")
-
 if not timerPlaylistExists:
     # print("Timer Test Playlist does not exist! Creating it...")
     response = sp.user_playlist_create(
@@ -53,9 +51,6 @@ if not timerPlaylistExists:
         description="Spotify Music Timer",
     )
     timerPlaylistId = response["id"]
-#     print("Created!")
-# else:
-#     print("timer playlist does exist")
 
 
 #################################################################
