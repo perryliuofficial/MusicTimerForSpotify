@@ -146,14 +146,18 @@ def play():
     play_track_id = [results['items'][play_track_index]['track']['uri']]
     playlist_length = results['items'][play_track_index]['track']['duration_ms']
 
+    # Add more songs if required
+    max_tracks_in_playlist = 100 #spotify limit of 10000 tracks per playlist, but 100 tracks per request
+    curr_tracks_in_playlist = 1 #the best fit song we added above
     songs_in_playlist = int(results['total'])-1
-    while float(timer) > float(playlist_length) and float(timer) - float(playlist_length) > 15000: #15 seconds
-        if play_track_index == songs_in_playlist:
+    while float(timer) > float(playlist_length) and curr_tracks_in_playlist < max_tracks_in_playlist and float(timer) - float(playlist_length) > 15000: #15 seconds
+        if play_track_index >= songs_in_playlist:
             play_track_index = 0
         else:
             play_track_index += 1
         play_track_id.append(results['items'][play_track_index]['track']['uri'])
         playlist_length += float(results['items'][play_track_index]['track']['duration_ms'])
+        curr_tracks_in_playlist += 1
 
     #################################################################
     # add the song(s) we want to the playlist
@@ -189,18 +193,13 @@ def stop():
         sp.playlist_remove_all_occurrences_of_items(playlist_id=timerPlaylistId, items=trackIds)
 
     clearPlaylist()
-
-    # print(0)
-    # play_track_id = ['spotify:track:1tFL456Lotpvnk8gCfZQOQ']
-    # sp.user_playlist_add_tracks(user_id, playlist_id=timerPlaylistId, tracks=play_track_id)
-    # playlistUri = "spotify:playlist:" + timerPlaylistId
-    # print(1)
-    # sp.start_playback(context_uri=playlistUri)
-    # print(2)
-    # # Stop alarm after 10 seconds
-    # time.sleep(10)
-    # print(3)
-    # sp.pause_playback(device_id=None)
-    # clearPlaylist()
+    play_track_id = ['spotify:track:1tFL456Lotpvnk8gCfZQOQ']
+    sp.user_playlist_add_tracks(user_id, playlist_id=timerPlaylistId, tracks=play_track_id)
+    playlistUri = "spotify:playlist:" + timerPlaylistId
+    sp.start_playback(context_uri=playlistUri)
+    # Stop alarm after 10 seconds
+    time.sleep(10)
+    sp.pause_playback(device_id=None)
+    clearPlaylist()
 
     return redirect(url_for('index'))

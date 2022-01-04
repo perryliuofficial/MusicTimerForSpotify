@@ -1,4 +1,5 @@
 # This standalone app will achieve all of the basic functionality via the command line.
+# This standalone version is not actively being developed and may not include newer bug fixes or improvements.
 from decouple import config
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
