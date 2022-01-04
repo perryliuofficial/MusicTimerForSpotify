@@ -7,6 +7,7 @@
                   <a class="app-no-hover" href="/"><h1 class="display-1 app-green app-fade">Music Timer</br><img src="{{url_for('static', filename='Spotify_Logo_RGB_Green.png')}}" class="d-inline-block align-top" width="50%" /></h1></a>
                   <p class="app-white h1" id="countdown"></p><br>
                   <script>
+                      var hasRedirected = false;
                       var getUrlParameter = function getUrlParameter(sParam) {
                         var sPageURL = window.location.search.substring(1),
                             sURLVariables = sPageURL.split('&'),
@@ -37,15 +38,17 @@
                         minutes = parseInt(total_minutes % 60);
                         hours = parseInt(total_hours % 24);
                         
-                        document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
-                      + minutes + "m " + seconds + "s ";
-                      document.title = days + "d " + hours + "h "
-                      + minutes + "m " + seconds + "s ";
+                        document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+                        document.title = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
                         
                       if (miliseconds < 0) {
+                        if (hasRedirected == false) {
+                          hasRedirected = true;
+                          window.location.href = "/stop";
+                        }
                         document.getElementById("countdown").innerHTML = "Time's Up";
-                      document.title = "Time's Up";
-                        window.location.href = "/stop";
+                        document.title = "Time's Up";
+
                       }
                     }, 1000);
 
@@ -56,5 +59,4 @@
               </div>
             </div>
           </div>
-          <script>window.history.pushState("object or string", "Title", "/");</script>
 {% endblock %}
