@@ -1,4 +1,5 @@
 # This standalone app will achieve all of the basic functionality via the command line.
+# This standalone version is not actively being developed and may not include newer bug fixes or improvements.
 from decouple import config
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -41,8 +42,6 @@ for item in playlist_items:
         timerPlaylistId = item["id"]
         break
 
-#print("---------")
-
 if not timerPlaylistExists:
     # print("Timer Test Playlist does not exist! Creating it...")
     response = sp.user_playlist_create(
@@ -53,9 +52,6 @@ if not timerPlaylistExists:
         description="Spotify Music Timer",
     )
     timerPlaylistId = response["id"]
-#     print("Created!")
-# else:
-#     print("timer playlist does exist")
 
 
 #################################################################
