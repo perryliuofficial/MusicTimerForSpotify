@@ -1,4 +1,4 @@
-# This standalone app will achieve all of the basic functionality via the command line.
+# This standalone app will achieve most of the basic functionality via the command line.
 # This standalone version is not actively being developed and may not include newer bug fixes or improvements.
 from decouple import config
 import spotipy
@@ -101,16 +101,18 @@ for count, track_results in enumerate(results['items']):
 play_track_id = [results['items'][play_track_index]['track']['uri']]
 playlist_length = results['items'][play_track_index]['track']['duration_ms']
 
-
+# add more songs if required
+max_tracks_in_playlist = 100 #spotify limit of 10000 tracks per playlist, but 100 tracks per request
+curr_tracks_in_playlist = 1 #the best fit song we added above
 songs_in_playlist = int(results['total'])-1
-while timer > playlist_length and timer - playlist_length > 15000: #15 seconds
+while timer > playlist_length and curr_tracks_in_playlist < max_tracks_in_playlist and timer - playlist_length > 15000: #15 seconds
     if play_track_index == songs_in_playlist:
         play_track_index = 0
     else:
         play_track_index += 1
     play_track_id.append(results['items'][play_track_index]['track']['uri'])
     playlist_length += results['items'][play_track_index]['track']['duration_ms']
-
+    curr_tracks_in_playlist += 1
 
 #################################################################
 # add the song(s) we want to the playlist
