@@ -217,7 +217,7 @@ def play():
         selectedDevice = userDevicesList[0]
     except:
         return render_template(
-            "error.html", title="Music Timer for Spotify", error_message=err_msg
+            "errors.html", title="Music Timer for Spotify", error_message=err_msg
         )
 
     # find an active device if available, if not default to first selected
