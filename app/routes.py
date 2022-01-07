@@ -207,12 +207,18 @@ def play():
     # select the top device in the list of available devices.
 
     deviceIDToPlay: str
+    err_msg = "There are no available devices to play too!"
 
-    userDevicesResponse = sp.devices()
-    userDevicesList = userDevicesResponse["devices"]
+    try:
+        userDevicesResponse = sp.devices()
+        userDevicesList = userDevicesResponse["devices"]
 
-    # get first device in list to default to if no active device
-    selectedDevice = userDevicesList[0]
+        # get first device in list to default to if no active device
+        selectedDevice = userDevicesList[0]
+    except:
+        return render_template(
+            "error.html", title="Music Timer for Spotify", error_message=err_msg
+        )
 
     # find an active device if available, if not default to first selected
     if len(userDevicesList) > 1:
@@ -250,21 +256,27 @@ def countdown():
 
 ##################################################################################################################################
 ##################################################################################################################################
-@app.route('/stop',methods=['POST', 'GET'])
+@app.route("/stop", methods=["POST", "GET"])
 def stop():
 
     sp.pause_playback(device_id=None)
 
     def clearPlaylist():
-        current_timer_playlist_songs = sp.playlist_items(playlist_id=timerPlaylistId, fields="items(track(id))")
+        current_timer_playlist_songs = sp.playlist_items(
+            playlist_id=timerPlaylistId, fields="items(track(id))"
+        )
         trackIds = list()
         for track in current_timer_playlist_songs["items"]:
             trackIds.append(track["track"]["id"])
-        sp.playlist_remove_all_occurrences_of_items(playlist_id=timerPlaylistId, items=trackIds)
+        sp.playlist_remove_all_occurrences_of_items(
+            playlist_id=timerPlaylistId, items=trackIds
+        )
 
     clearPlaylist()
-    play_track_id = ['spotify:track:1tFL456Lotpvnk8gCfZQOQ']
-    sp.user_playlist_add_tracks(user_id, playlist_id=timerPlaylistId, tracks=play_track_id)
+    play_track_id = ["spotify:track:1tFL456Lotpvnk8gCfZQOQ"]
+    sp.user_playlist_add_tracks(
+        user_id, playlist_id=timerPlaylistId, tracks=play_track_id
+    )
     playlistUri = "spotify:playlist:" + timerPlaylistId
     sp.start_playback(context_uri=playlistUri)
     # Stop alarm after 10 seconds
@@ -272,4 +284,4 @@ def stop():
     sp.pause_playback(device_id=None)
     clearPlaylist()
 
-    return redirect(url_for('index'))
+    return redirect(url_for("index"))
