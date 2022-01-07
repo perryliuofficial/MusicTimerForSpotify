@@ -7,19 +7,7 @@
               <div class="col-12 col-lg-6 d-flex align-items-center h-100">
                 <div>
                   <a class="app-no-hover" href="/"><h1 class="display-1 app-green app-fade">Music Timer</br><img src="{{url_for('static', filename='Spotify_Logo_RGB_Green.png')}}" class="d-inline-block align-top" width="50%" /></h1></a>
-                  {% if stage==1 %}
-                  <p class="app-white h3">User: {{user_id}}</p><br>
-                  <div class="row container px-0 mx-0">
-                    <div class="col-12 col-lg-6 px-0">
-                        <form name="myform" method="POST" action="{{ url_for('playlist') }}" class="">
-                          {{ form.hidden_tag() }}
-                          <span class="app-white">{{form.timer.label}}</span><br>
-                          <div class="input-group w-100">
-                            {{form.timer(class="form-control")}}{{form.submit(class="btn app-bg-green app-white") }}
-                          </div>
-                        </form>
-                    </div>
-                  </div>
+                  <p class="app-white h3">Error: {{error_message}}</p><br>
                 </div>
               </div>
               <div class="col-12 col-lg-6 d-none d-lg-block d-flex h-100">

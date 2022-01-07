@@ -250,35 +250,26 @@ def countdown():
 
 ##################################################################################################################################
 ##################################################################################################################################
-@app.route("/stop", methods=["POST", "GET"])
+@app.route('/stop',methods=['POST', 'GET'])
 def stop():
 
     sp.pause_playback(device_id=None)
 
     def clearPlaylist():
-        current_timer_playlist_songs = sp.playlist_items(
-            playlist_id=timerPlaylistId, fields="items(track(id))"
-        )
+        current_timer_playlist_songs = sp.playlist_items(playlist_id=timerPlaylistId, fields="items(track(id))")
         trackIds = list()
         for track in current_timer_playlist_songs["items"]:
             trackIds.append(track["track"]["id"])
-        sp.playlist_remove_all_occurrences_of_items(
-            playlist_id=timerPlaylistId, items=trackIds
-        )
+        sp.playlist_remove_all_occurrences_of_items(playlist_id=timerPlaylistId, items=trackIds)
 
     clearPlaylist()
+    play_track_id = ['spotify:track:1tFL456Lotpvnk8gCfZQOQ']
+    sp.user_playlist_add_tracks(user_id, playlist_id=timerPlaylistId, tracks=play_track_id)
+    playlistUri = "spotify:playlist:" + timerPlaylistId
+    sp.start_playback(context_uri=playlistUri)
+    # Stop alarm after 10 seconds
+    time.sleep(10)
+    sp.pause_playback(device_id=None)
+    clearPlaylist()
 
-    # print(0)
-    # play_track_id = ['spotify:track:1tFL456Lotpvnk8gCfZQOQ']
-    # sp.user_playlist_add_tracks(user_id, playlist_id=timerPlaylistId, tracks=play_track_id)
-    # playlistUri = "spotify:playlist:" + timerPlaylistId
-    # print(1)
-    # sp.start_playback(context_uri=playlistUri)
-    # print(2)
-    # # Stop alarm after 10 seconds
-    # time.sleep(10)
-    # print(3)
-    # sp.pause_playback(device_id=None)
-    # clearPlaylist()
-
-    return redirect(url_for("index"))
+    return redirect(url_for('index'))
