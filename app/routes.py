@@ -207,7 +207,7 @@ def play():
     # select the top device in the list of available devices.
 
     deviceIDToPlay: str
-    err_msg = "There are no available devices to play too!"
+    err_msg = "There are no available devices to play to!"
 
     try:
         userDevicesResponse = sp.devices()
