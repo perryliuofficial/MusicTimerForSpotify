@@ -1,11 +1,6 @@
 # Spotify Music Timer
 Timer that plays songs for a given length of time from spotify, from your selected playlist.
 
-## ❗Note❗
-- The functionality of this app may break Spotify's API agreements as their policy disallows ringtones or alarms.
-- As such we will not be hosting this application.
-- To run it clone and follow the instructions below.
-
 ## 💡To Run App Locally💡
 - Clone or download repo.
 - ```pip install Flask```
