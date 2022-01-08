@@ -6,7 +6,7 @@ Timer that plays songs for a given length of time from spotify, from your select
 ## 💡To Run App Locally💡
 - Clone or download repo.
 - ```pip install Flask```
-- ```pip install -U Flask-WTF```
+- ```pip install Flask-WTF```
 - ```pip install spotipy```
 - ```pip install python-decouple```
 - Install any other required modules if you encounter an error when running the app.
@@ -15,8 +15,8 @@ Timer that plays songs for a given length of time from spotify, from your select
   - Create an app and generate client id/ secret.
   - Under app settings add a Redirect URI.
 - Create a .env file in the root directory and populate it with info from above.
-  - CLIENT_ID=000000000000000000000000
-  - CLIENT_SECRET=00000000000000000000
+  - CLIENT_ID="0000000000000000000000"
+  - CLIENT_SECRET="000000000000000000"
   - REDIRECT_URI='http://localhost:8080/'
   - FLASK_WTF_KEY='random-string'
 - ```flask run```
