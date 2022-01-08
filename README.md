@@ -24,7 +24,7 @@ Timer that plays songs for a given length of time from spotify, from your select
   -  ```python standalone_app.py```
 
 ## 💡How It Works💡
-- Refer to [documentation](https://github.com/Alex-Draper/SpotifyMusicTimer/tree/dev/documentation/design) for more information.
+- Refer to [documentation](https://github.com/perryliuofficial/MusicTimerForSpotify/tree/main/documentation/design) for more information.
 - toplevel.py initialises app.
 - app/__init__.py initialises app and sets up global variables.
 - .env (gitignored) stores all environmental variables.
@@ -32,4 +32,4 @@ Timer that plays songs for a given length of time from spotify, from your select
 - app/templates for html files.
 
 ## ❗Known Issues❗
-- [Refer to issues](https://github.com/Alex-Draper/SpotifyMusicTimer/issues)
+- [Refer to issues](https://github.com/perryliuofficial/MusicTimerForSpotify/issues)
