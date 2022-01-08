@@ -1,6 +1,8 @@
 # Spotify Music Timer
 Timer that plays songs for a given length of time from spotify, from your selected playlist.
 
+![This is an image](https://github.com/perryliuofficial/MusicTimerForSpotify/blob/main/music_timer.gif)
+
 ## 💡To Run App Locally💡
 - Clone or download repo.
 - ```pip install Flask```
