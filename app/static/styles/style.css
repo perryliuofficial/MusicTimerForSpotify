@@ -5,17 +5,7 @@
     --spotify-black: #191414;
     --app-grey: #d1d1d1;
     --app-blue: #121F2B;
-    --ppp-red: #FE5F55;
-    --ppp-red-hover: #b1423a;
-    --ppp-white:#F7F7FF;
-    --ppp-blue:#121F2B;
-    --ppp-blue-bg:#f7f7ff0c;
-    --ppp-blue-nav:#121f2b00;
     --app-blue-shadow:#0d1720;
-    --ppp-teal: #21a0a0;
-    --ppp-teal-hover:#1b7575;
-    --ppp-purple: #A74482;
-    --ppp-purple-hover: #77315d;
     --app-transition: 0.3s;
 }
   
@@ -121,39 +111,6 @@ body {
   min-height:100vh;
 }
 
-  
-.ppp-underline {
-  text-decoration: none !important;
-}
-  
-.ppp-orange-red {
-  color: var(--ppp-red);
-}
-  
-.ppp-red-hover:hover {
-  color: var(--ppp-red-hover);
-}
-  
-.ppp-white {
-  color:var(--ppp-white);
-}
-
-  
-.ppp-space-pre {
-  white-space: pre;
-}
-
-.ppp-overlay{
-  -webkit-filter: grayscale(80%);
-    filter: grayscale(80%);
-    -webkit-transition: var(--ppp-transition) ease-in-out;
-    transition: var(--ppp-transition) ease-in-out;
-}
-.ppp-overlay:hover {
-    -webkit-filter: grayscale(0);
-    filter: grayscale(0);
-}
-
 a.app-no-hover:link {
   text-decoration: none;
 }
@@ -202,21 +159,4 @@ button {
 
 .card-footer {
   background-color: var(--spotify-green);
-}
-
-
-#ppp-img {
-  transition: var(--ppp-transition);
-}
-
-#ppp-img:hover {
-  box-shadow: 0 0 50px var(--ppp-teal) !important;
-}
-
-.ppp-text-hover {
-  transition: var(--ppp-transition);
-}
-
-.ppp-text-hover:hover {
-  color: var(--ppp-teal);
 }
